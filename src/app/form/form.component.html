@@ -1,0 +1,448 @@
+<div class="container-fluid df">
+  <div class="jumbotron">
+    <h1 class="pf">IRCTC Autofill Form</h1>
+    <p>In order to automatically fill your data on IRCTC first you have to install the Extension and then click on the extension or Visit mywebsite and fill out the form and then click save this form. After that open <a>https://irctc.co.in</a></p>
+    <p class="fss"><a class="btn btn-primary btn-lg">Install Plugin</a>
+    <a class="btn btn-primary btn-lg" href="https://www.irctc.co.in" target="_blank">Go To IRCTC</a></p>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-3 ">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Login Details</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" [formGroup]="loginForm">
+            <div class="form-group">
+              <label class="control-label col-xs-2" for="j_username">UserID:</label>
+              <div class="col-xs-9 pull-right">
+                <input 
+                size="15" maxlength="35" 
+                type="text" 
+                class="form-control" 
+                id="j_username" 
+                placeholder="Enter Username"
+                formControlName="userID">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2" for="j_password">Password:</label>
+              <div class="col-xs-9 pull-right"> 
+                <input
+                size="15" maxlength="15" 
+                type="password" 
+                class="form-control" 
+                id="j_password" 
+                placeholder="Enter password"
+                formControlName="password">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Train Details</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" [formGroup]="trainDetails">
+            <div class="form-group">
+              <label class="control-label col-xs-2" for="from">From:</label>
+              <div class="col-xs-9 pull-right">
+                <input type="text" class="form-control" id="from" placeholder="Enter From Station"
+                formControlName="fromStation" (keyup)="onInput($event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2" for="to">To:</label>
+              <div class="col-xs-9 pull-right"> 
+                <input type="text" class="form-control" id="to" placeholder="Enter To Station"
+                formControlName="toStation" (keyup)="onInput($event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2" for="datepick">Date:</label>
+              <material-datepicker [(date)]="yourModelDate" class="col-xs-9 pull-right" placeholder="Select A Date" id="datepick"></material-datepicker>      
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2" for="trainno">TrainNo:</label>
+              <div class="col-xs-9 pull-right"> 
+                <input type="text" class="form-control" id="trainno" placeholder="Enter Train No" formControlName="trainNo">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2" for="boarding">Boarding:</label>
+              <div class="col-xs-9 pull-right">
+                <input type="text" class="form-control" id="boarding" data-toggle="tooltip" title="You Can Left It Blank If From Station is Same As Boarding Station" placeholder="Enter Boarding Station"
+                formControlName="boardingStation" (keyup)="onInput($event)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="select" class="col-xs-2 control-label">Class:</label>
+              <div class="col-xs-9 pull-right" >
+                <select class="form-control" id="classArr">
+                  <option *ngFor="let item of travelArray">{{item}}</option>
+                </select>
+              </div>
+            </div>
+          </form> 
+        </div>
+      </div>
+      <div *ngIf="filteredList.length > 0 " class="form-group" [ngStyle]="customStyle" >
+              <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let item of filteredList;let i=index" [ngStyle]="liColor[i]" (mouseleave)="onLiLeave(i)" (mouseover)="onLiColor(i)" (click)="select(item,i)">
+                    {{item }}
+                  </li>
+              </ul>
+      </div>
+      <div class="col-xs-12">
+          <button class="btn btn-lg col-xs-offset-3" data-toggle="modal" data-target="#myModal" id="myButton" (click)="saveForm()">Save This Form</button>
+      </div>
+    </div>
+    <div class="col-xs-9">
+      <div class="row">
+        <div class="col-xs-10">
+        <div class="panel panel-info ">
+          <div class="panel-heading">
+            <h3 class="panel-title">Passengers Detail</h3>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal" [formGroup]="passenger">
+              <table class="table table-striped table-hover ">
+                <thead>
+                  <tr>
+                    <th>SNo</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Berth Preference</th>
+                    <th>Meal</th>
+                    <th>Sen Ctzn</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="passengers">
+                  <tr *ngFor="let item of passenger.controls['passengers'].controls;let i = index" [formGroupName]="i">
+                      <td style="width:3%"><label class="control-label">{{i+1}}</label></td>
+                      <td style="width: 24%"><div class="col-xs-12 pull-left children" ><input maxlength="16" size="16" class="form-control" type="text" formControlName="name" placeholder="Name" id="name{{i}}"></div></td>
+                      <td style="width: 9%">
+                        <div class="col-xs-12 pull-left children" ><input class="form-control" type="text" pattern="\d*" maxlength="3" formControlName="age" placeholder="Age" id="age{{i}}"></div>
+                      </td>
+                      <td style="width: 13%">
+                        <div class="col-xs-12 pull-left children">
+                          <select class="form-control" id="gender{{i}}" >
+                            <option *ngFor="let item of gender" [disabled]="item === 'Select'">{{item}}</option>
+                          </select>
+                        </div>
+                      </td>
+                      <td style="width: 20%">
+                        <div class="col-xs-12 pull-left children">
+                          <select class="form-control" id="birth{{i}}" >
+                            <option *ngFor="let item of birth">{{item}}</option>
+                          </select>
+                        </div>
+                      </td>
+                      <td style="width: 18%">
+                        <div class="col-xs-12 pull-left children">
+                          <select class="form-control" id="meal{{i}}" >
+                            <option *ngFor="let item of meal">{{item}}</option>
+                          </select>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="radio col-xs-12 pull-left children">
+                          <label>
+                            <input type="checkbox" id="sen{{i}}">
+                          </label>
+                        </div>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Mobile Detail</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal" [formGroup]="mobileDetails">
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <div class="radio">
+                      <label>
+                        <input type="checkbox" name="optionsRadios1" id="autoUpgrade">
+                        Consider For Auto Upgration
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="checkbox" name="optionsRadios2" id="onlyConfirmBirths" >
+                        Book only if Confirm Births are Alotted
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-2" for="mobile">MobileNo:</label>
+                  <div class="col-xs-9 pull-right"> 
+                    <input type="text" class="form-control" id="mobile" maxlength="10" size="10" pattern="\d*" placeholder="Mobile No" formControlName="mobileNo">
+                  </div>
+                </div>
+                <div class="col-xs-9 pull-right">
+                  SMS Will Be Sent To This No
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="panel panel-info ">
+            <div class="panel-heading">
+              <h3 class="panel-title">Children Passengers Detail</h3>
+            </div>
+            <div class="panel-body" style="padding:7px">
+              <form class="form-horizontal" [formGroup]="childrenPassenger">
+                <table class="table table-striped table-hover ">
+                  <thead>
+                    <tr>
+                      <th>SNo</th>
+                      <th>Name</th>
+                      <th>Age</th>
+                      <th>Gender</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="passengers">
+                    <tr *ngFor="let item of childrenPassenger.controls['passengers'].controls;let i = index" [formGroupName]="i">
+                        <td><label class="control-label">{{i+1}}</label></td>
+                        <td><div class="col-xs-12 pull-left children" ><input class="form-control" type="text" maxlength="16" size="16" formControlName="name" placeholder="Name" id="childName{{i}}"></div></td>
+                        <td class="childAge">
+                          <div class="col-xs-12 pull-left children">
+                            <select class="form-control" id="childAge{{i}}">
+                              <option *ngFor="let item of childAgeArray" [disabled]="item === 'Select'">{{item}}</option>
+                            </select></div></td>
+                        <td style="width: 30%">
+                          <div class="col-xs-12 pull-left children">
+                            <select class="form-control" id="childGender{{i}}" >
+                              <option *ngFor="let item of gender" [disabled]="item === 'Select'">{{item}}</option>
+                            </select>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>        
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <label class="panel-title">Select Payment Method</label>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal" [formGroup]="paymentMethod">
+                <div class="form-group">
+                  <label for="select" class="col-xs-3 control-label">Payment Mode:</label>
+                  <div class="col-xs-9 pull-right" >
+                    <select class="form-control" id="payMode" #payMode (change)="payModeChange(payMode.value)">
+                      <option *ngFor="let item of paymentMode;let i = index" [value]="paymentModeVal[i]">{{item}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group" >
+                  <label for="select" class="col-xs-3 control-label">Select Bank:</label>
+                  <div class="col-xs-9 pull-right" >
+                    <select class="form-control" id="bankName" #bankName>
+                      <option *ngFor="let item of temporaryBanks;let i = index" [value]="temporaryBanksValue[i]">{{item}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div *ngIf="bankName.value === '10'">
+                  <div class="form-group" >
+                    <div class="col-xs-7 pull-right" >
+                      <select class="form-control" id="bankAssName">
+                        <option *ngFor="let item of selectNetSbiAss;let i = index" [value]="i+1">{{item}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="payMode.value === 'NETBANKING' && bankName.value !== '-1'" formGroupName="netBankLog">
+                  <div class="form-group">
+                    <label class="control-label col-xs-4" for="bankUID">UserID:</label>
+                    <div class="col-xs-7 pull-right">
+                      <input 
+                      type="text" 
+                      class="form-control" 
+                      id="bankUID" 
+                      placeholder="Bank UserID"
+                      formControlName="userID">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-4" for="bankPWD">Password:</label>
+                    <div class="col-xs-7 pull-right"> 
+                      <input 
+                      type="password" 
+                      class="form-control" 
+                      id="bankPWD" 
+                      placeholder="Bank Password"
+                      formControlName="password">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="payMode.value !== 'NETBANKING' && bankName.value !== '-1'">
+                  <div class="form-group" *ngIf="bankName.value === '41' || bankName.value === '4' || bankName.value === '21' || bankName.value === '30'">
+                      <label class="control-label col-xs-4" for="cardType">Card Type:</label>
+                      <div class="col-xs-7 pull-right" >
+                        <select class="form-control" id="cardType">
+                          <option *ngFor="let item of cardType" [value]="item">{{item}}</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="form-group" *ngIf="bankName.value === '17'">
+                      <label class="control-label col-xs-4" for="citiCard">Card Type:</label>
+                      <div class="col-xs-7 pull-right" >
+                        <select class="form-control" id="citiCard">
+                          <option *ngFor="let item of citiCard" [value]="item">{{item}}</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-4" for="cardNo">Card No:</label>
+                    <div class="col-xs-7 pull-right"> 
+                      <input 
+                      size="19"
+                      maxlength="19"
+                      pattern="\d*"
+                      type="text" 
+                      class="form-control" 
+                      id="cardNo" 
+                      placeholder="Enter Your Card No"
+                      formControlName="cardNo">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-xs-4" for="cardMonth">Valid Thru/Expiry:</label>
+                    <div class="col-xs-7 pull-right">
+                      <div class="col-xs-6 pull-left" style="padding: 0">
+                        <select class="form-control" id="cardMonth">
+                          <option *ngFor="let item of month" [value]="monthVal[i]">{{item}}</option>
+                        </select>
+                      </div>
+                      <div class="col-xs-6 pull-right" style="padding: 0"> 
+                        <input 
+                        type="text"
+                        size="4"
+                        maxlength="4"
+                        pattern="\d*" 
+                        class="form-control" 
+                        id="cardYear" 
+                        placeholder="YYYY"
+                        formControlName="year">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngIf="bankName.value === '41' || payMode.value === 'CREDIT_CARD' ">
+                    <label class="control-label col-xs-4" for="cvv">CVV:</label>
+                    <div class="col-xs-7 pull-right">
+                      <div class="col-xs-6 pull-left" style="padding: 0">
+                        <input 
+                        type="text" 
+                        size="3"
+                        maxlength="3"
+                        pattern="\d*"
+                        class="form-control" 
+                        id="cvv" 
+                        placeholder="Enter Your CVV"
+                        formControlName="cvv">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngIf="payMode.value != 'CREDIT_CARD'">
+                    <label class="control-label col-xs-4" for="pin">Pin Number:</label>
+                    <div class="col-xs-7 pull-right">
+                      <div class="col-xs-6 pull-left" style="padding: 0">
+                        <input 
+                        type="password" 
+                        class="form-control"
+                        size="4"
+                        maxlength="4"
+                        pattern="\d*" 
+                        id="pin" 
+                        placeholder="Pin"
+                        formControlName="pin">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngIf="bankName.value !== '17' && bankName.value !== '30'">
+                    <label class="control-label col-xs-4" for="cardName">Cardholder Name:</label>
+                    <div class="col-xs-7 pull-right"> 
+                      <input 
+                      type="text" 
+                      class="form-control" 
+                      id="cardName" 
+                      placeholder="Enter Name As Printed On Your Card"
+                      formControlName="name">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Select Quota</h3>
+            </div>
+            <div class="panel-body ds">
+              <div class="form-group">
+                  <div *ngFor="let item of quota;let i=index">
+                    <div class="radio col-xs-3">
+                      <label>
+                        <input style="margin-left:-15px" type="radio" name="optionsRadios" id="quota{{i+1}}" [value]="quotaVal[i]" [checked]="item === 'Tatkal'">
+                        {{item}}
+                      </label>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="modal fade" id="myModal" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Go To IRCTC</h4>
+        </div>
+        <div class="modal-body">
+          <p>Your Data Is Saved Now Go To IRCTC Website For Ticket Booking</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ><a href="https://www.irctc.co.in" class="irc" target="_blank">Go To IRCTC</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script >
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+</script>
+
