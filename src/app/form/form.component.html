@@ -1,8 +1,8 @@
 <div class="container-fluid df">
-  <div class="jumbotron">
-    <h1 class="pf">IRCTC Autofill Form</h1>
-    <p>In order to automatically fill your data on IRCTC first you have to install the Extension and then click on the extension or Visit mywebsite and fill out the form and then click save this form. After that open <a>https://irctc.co.in</a></p>
-    <p class="fss"><a class="btn btn-primary btn-lg">Install Plugin</a>
+  <div class="jumbotron text-center">
+    <h1>IRCTC Autofill Form</h1>
+    <p>In order to automatically fill your data on IRCTC first you have to install the Extension and then click on the extension or Visit mywebsite and fill out the form and then click save this form. After that open <a style="cursor:pointer">https://irctc.co.in</a></p>
+    <p><a class="btn btn-primary btn-lg">Install Plugin</a>
     <a class="btn btn-primary btn-lg" href="https://www.irctc.co.in" target="_blank">Go To IRCTC</a></p>
   </div>
 </div>
@@ -19,23 +19,23 @@
             <div class="form-group">
               <label class="control-label col-xs-2" for="j_username">UserID:</label>
               <div class="col-xs-9 pull-right">
-                <input 
-                size="15" maxlength="35" 
-                type="text" 
-                class="form-control" 
-                id="j_username" 
+                <input
+                size="15" maxlength="35"
+                type="text"
+                class="form-control"
+                id="j_username"
                 placeholder="Enter Username"
                 formControlName="userID">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-xs-2" for="j_password">Password:</label>
-              <div class="col-xs-9 pull-right"> 
+              <div class="col-xs-9 pull-right">
                 <input
-                size="15" maxlength="15" 
-                type="password" 
-                class="form-control" 
-                id="j_password" 
+                size="15" maxlength="15"
+                type="password"
+                class="form-control"
+                id="j_password"
                 placeholder="Enter password"
                 formControlName="password">
               </div>
@@ -58,18 +58,18 @@
             </div>
             <div class="form-group">
               <label class="control-label col-xs-2" for="to">To:</label>
-              <div class="col-xs-9 pull-right"> 
+              <div class="col-xs-9 pull-right">
                 <input type="text" class="form-control" id="to" placeholder="Enter To Station"
                 formControlName="toStation" (keyup)="onInput($event)">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-xs-2" for="datepick">Date:</label>
-              <material-datepicker [(date)]="yourModelDate" class="col-xs-9 pull-right" placeholder="Select A Date" id="datepick"></material-datepicker>      
+              <material-datepicker [(date)]="yourModelDate" class="col-xs-9 pull-right" placeholder="Select A Date" id="datepick"></material-datepicker>
             </div>
             <div class="form-group">
               <label class="control-label col-xs-2" for="trainno">TrainNo:</label>
-              <div class="col-xs-9 pull-right"> 
+              <div class="col-xs-9 pull-right">
                 <input type="text" class="form-control" id="trainno" placeholder="Enter Train No" formControlName="trainNo">
               </div>
             </div>
@@ -88,7 +88,7 @@
                 </select>
               </div>
             </div>
-          </form> 
+          </form>
         </div>
       </div>
       <div *ngIf="filteredList.length > 0 " class="form-group" [ngStyle]="customStyle" >
@@ -192,7 +192,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label col-xs-2" for="mobile">MobileNo:</label>
-                  <div class="col-xs-9 pull-right"> 
+                  <div class="col-xs-9 pull-right">
                     <input type="text" class="form-control" id="mobile" maxlength="10" size="10" pattern="\d*" placeholder="Mobile No" formControlName="mobileNo">
                   </div>
                 </div>
@@ -240,7 +240,7 @@
                 </table>
               </form>
             </div>
-          </div>        
+          </div>
         </div>
       </div>
       <div class="row">
@@ -280,21 +280,21 @@
                   <div class="form-group">
                     <label class="control-label col-xs-4" for="bankUID">UserID:</label>
                     <div class="col-xs-7 pull-right">
-                      <input 
-                      type="text" 
-                      class="form-control" 
-                      id="bankUID" 
+                      <input
+                      type="text"
+                      class="form-control"
+                      id="bankUID"
                       placeholder="Bank UserID"
                       formControlName="userID">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-xs-4" for="bankPWD">Password:</label>
-                    <div class="col-xs-7 pull-right"> 
-                      <input 
-                      type="password" 
-                      class="form-control" 
-                      id="bankPWD" 
+                    <div class="col-xs-7 pull-right">
+                      <input
+                      type="password"
+                      class="form-control"
+                      id="bankPWD"
                       placeholder="Bank Password"
                       formControlName="password">
                     </div>
@@ -319,14 +319,14 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label col-xs-4" for="cardNo">Card No:</label>
-                    <div class="col-xs-7 pull-right"> 
-                      <input 
+                    <div class="col-xs-7 pull-right">
+                      <input
                       size="19"
                       maxlength="19"
                       pattern="\d*"
-                      type="text" 
-                      class="form-control" 
-                      id="cardNo" 
+                      type="text"
+                      class="form-control"
+                      id="cardNo"
                       placeholder="Enter Your Card No"
                       formControlName="cardNo">
                     </div>
@@ -339,14 +339,14 @@
                           <option *ngFor="let item of month" [value]="monthVal[i]">{{item}}</option>
                         </select>
                       </div>
-                      <div class="col-xs-6 pull-right" style="padding: 0"> 
-                        <input 
+                      <div class="col-xs-6 pull-right" style="padding: 0">
+                        <input
                         type="text"
                         size="4"
                         maxlength="4"
-                        pattern="\d*" 
-                        class="form-control" 
-                        id="cardYear" 
+                        pattern="\d*"
+                        class="form-control"
+                        id="cardYear"
                         placeholder="YYYY"
                         formControlName="year">
                       </div>
@@ -356,13 +356,13 @@
                     <label class="control-label col-xs-4" for="cvv">CVV:</label>
                     <div class="col-xs-7 pull-right">
                       <div class="col-xs-6 pull-left" style="padding: 0">
-                        <input 
-                        type="text" 
+                        <input
+                        type="text"
                         size="3"
                         maxlength="3"
                         pattern="\d*"
-                        class="form-control" 
-                        id="cvv" 
+                        class="form-control"
+                        id="cvv"
                         placeholder="Enter Your CVV"
                         formControlName="cvv">
                       </div>
@@ -372,13 +372,13 @@
                     <label class="control-label col-xs-4" for="pin">Pin Number:</label>
                     <div class="col-xs-7 pull-right">
                       <div class="col-xs-6 pull-left" style="padding: 0">
-                        <input 
-                        type="password" 
+                        <input
+                        type="password"
                         class="form-control"
                         size="4"
                         maxlength="4"
-                        pattern="\d*" 
-                        id="pin" 
+                        pattern="\d*"
+                        id="pin"
                         placeholder="Pin"
                         formControlName="pin">
                       </div>
@@ -386,11 +386,11 @@
                   </div>
                   <div class="form-group" *ngIf="bankName.value !== '17' && bankName.value !== '30'">
                     <label class="control-label col-xs-4" for="cardName">Cardholder Name:</label>
-                    <div class="col-xs-7 pull-right"> 
-                      <input 
-                      type="text" 
-                      class="form-control" 
-                      id="cardName" 
+                    <div class="col-xs-7 pull-right">
+                      <input
+                      type="text"
+                      class="form-control"
+                      id="cardName"
                       placeholder="Enter Name As Printed On Your Card"
                       formControlName="name">
                     </div>
@@ -435,7 +435,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" ><a href="https://www.irctc.co.in" class="irc" target="_blank">Go To IRCTC</a></button>
+          <button type="button" class="btn btn-primary"  ><a href="https://www.irctc.co.in" class="irc" target="_blank">Go To IRCTC</a></button>
         </div>
       </div>
     </div>
@@ -445,4 +445,3 @@
     $('[data-toggle="tooltip"]').tooltip()
   });
 </script>
-

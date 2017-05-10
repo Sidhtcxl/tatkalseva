@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
         background:#3b5998;
       }
       .navbar{
-        height:47px;
+        height:46px;
       }
       nav ul{
         padding-top:3px;
@@ -26,6 +26,9 @@ import { Component, OnInit } from '@angular/core';
       }
       .navbar-brand {
         padding: 0px;
+      }
+      .lul{
+        padding-top: 5px;
       }
   `]
 })

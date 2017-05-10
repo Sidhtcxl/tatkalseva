@@ -8,12 +8,18 @@ import {DatepickerModule} from 'angular2-material-datepicker';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FormComponent } from './form/form.component';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FormComponent
+    FormComponent,
+    HomeComponent,
+    FooterComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

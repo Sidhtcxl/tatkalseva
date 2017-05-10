@@ -1,6 +1,6 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import {FormGroup,FormBuilder,FormArray} from '@angular/forms';
- import {availableTags} from '../trainNames'; 
+ import {availableTags} from '../trainNames';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -12,12 +12,7 @@ import {FormGroup,FormBuilder,FormArray} from '@angular/forms';
       padding-left: 0;
       padding-right: 0;
     }
-    .pf{
-      padding-left:30%;
-    }
-    .fss{
-      padding-left:40%;
-    }
+    
     #myButton{
       background-color:#029acf;
       color:white;
@@ -36,12 +31,12 @@ import {FormGroup,FormBuilder,FormArray} from '@angular/forms';
       min-width: 1000px;
       min-height: 1000px;
     }
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button { 
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        margin: 0; 
+        margin: 0;
     }
     .irc,.irc:hover{
       text-decoration:none;
@@ -146,7 +141,7 @@ export class FormComponent implements OnInit {
    initChildPassengers(){
      return this.formBuilder.group({'name':['']});
    }
-   
+
    initPassengers(){
      return this.formBuilder.group({
        'name':[''],
@@ -176,7 +171,7 @@ export class FormComponent implements OnInit {
       this.query = this.trainDetails.controls['toStation'].value;
       this.customStyle['top'] = '329px';
       this.id = 'to';
-    }  
+    }
     else if(event.target.id ==='from'){
       this.query = this.trainDetails.controls['fromStation'].value;
       this.customStyle['top'] = '278px';
@@ -211,7 +206,7 @@ export class FormComponent implements OnInit {
     else if(this.id==='from')
       this.trainDetails.controls['fromStation'].setValue(item);
       else
-       this.trainDetails.controls['boardingStation'].setValue(item); 
+       this.trainDetails.controls['boardingStation'].setValue(item);
       this.onLiLeave(i);
   }
 
