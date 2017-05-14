@@ -1,6 +1,8 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import {FormGroup,FormBuilder,FormArray} from '@angular/forms';
  import {availableTags} from '../trainNames';
+
+ declare var chrome:any;
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -12,7 +14,7 @@ import {FormGroup,FormBuilder,FormArray} from '@angular/forms';
       padding-left: 0;
       padding-right: 0;
     }
-    
+
     #myButton{
       background-color:#029acf;
       color:white;
@@ -210,8 +212,15 @@ export class FormComponent implements OnInit {
       this.onLiLeave(i);
   }
 
+  install(event){
+    if(chrome && event.target.text !== "Plugin Installed"){
+      chrome.webstore.install();
+    }
+  }
 
   ngOnInit() {
+
+
   }
 
     public filteredList = [];

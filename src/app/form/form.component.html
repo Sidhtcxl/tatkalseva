@@ -2,7 +2,7 @@
   <div class="jumbotron text-center">
     <h1>IRCTC Autofill Form</h1>
     <p>In order to automatically fill your data on IRCTC first you have to install the Extension and then click on the extension or Visit mywebsite and fill out the form and then click save this form. After that open <a style="cursor:pointer">https://irctc.co.in</a></p>
-    <p><a class="btn btn-primary btn-lg">Install Plugin</a>
+    <p><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myextModal" id="myExt" (click) = "install($event)">Install Plugin</a>
     <a class="btn btn-primary btn-lg" href="https://www.irctc.co.in" target="_blank">Go To IRCTC</a></p>
   </div>
 </div>
@@ -440,8 +440,26 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="myextModal" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Please Reload The Page</h4>
+        </div>
+        <div class="modal-body">
+          <p>Please Reload The Page After Installation</p>
+        </div>
+        <div class="modal-footer ">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script >
   $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip()
   });
+
+
 </script>
