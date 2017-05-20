@@ -1,5 +1,5 @@
-import { Component, OnInit,ElementRef } from '@angular/core';
-import {FormGroup,FormBuilder,FormArray} from '@angular/forms';
+import { Component, OnInit,ElementRef,Renderer,AfterViewInit,ViewChild } from '@angular/core';
+import {FormGroup,FormBuilder,FormArray,} from '@angular/forms';
  import {availableTags} from '../trainNames';
 
  declare var chrome:any;
@@ -90,7 +90,18 @@ export class FormComponent implements OnInit {
       };
   liColor=[];
   private id:string ;
-  constructor(private formBuilder: FormBuilder,private elementRef:ElementRef) {
+  constructor(private formBuilder: FormBuilder,private elementRef:ElementRef,private renderer:Renderer) {
+
+    renderer.listen(elementRef.nativeElement,'click',(event) =>{
+      if(event.srcElement.text === 'Install Plugin'){
+        if(chrome){
+          chrome.webstore.install();
+        }
+      }else if(event.srcElement.text === 'Plugin Installed'){
+        event.srcElement.disabled = true;
+      }
+    });
+
     this.loginForm = formBuilder.group({
       'userID':[''],
       'password': ['']
@@ -214,12 +225,13 @@ export class FormComponent implements OnInit {
 
   install(event){
     if(chrome && event.target.text !== "Plugin Installed"){
-      chrome.webstore.install();
+      chrome.webstore.install(undefined,undefined,function(e){
+        console.log(e);
+      });
     }
   }
 
   ngOnInit() {
-
 
   }
 
